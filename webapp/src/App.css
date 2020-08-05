@@ -1,0 +1,139 @@
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.page {
+  min-height: 100vh;
+  width: 100%;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+button {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+table {
+  border: 1px solid gray;
+  border-collapse: collapse;
+}
+
+td {
+  border: 1px solid gray;
+}
+
+th {
+  border: 1px solid gray;
+}
+
+textarea {
+  margin: 10px;
+  padding: 10px;
+  height: 70px;
+  width: 90%;
+  border: 1px solid #D1EB50;
+  border-radius: 3px;
+}
+
+.btn-plain {
+  background: none;
+  border: 1px solid darkgray;
+}
+
+.btn-plain:hover {
+  background: black;
+  color: darkgray;
+}
+
+.btn-bt {
+  background: #D1EB50;
+  color: #000;
+  border: none;
+}
+
+.btn-bt:hover {
+  background: #BBE100;
+}
+
+.dailyForms {
+  border-radius: 5px;
+  background: #F2FFAF;
+  margin-top: 5px;
+  width: 75%;
+  align-items: flex-start;
+}
+
+.dailyFormsRow {
+  width: 100%;
+}
+
+.small-title {
+  background: #D1EB50;
+  padding: 7px;
+  border-radius: 3px;
+}
+
+#main {
+  height: 100vh;
+  width: 100%;
+}
+
+#header {
+  background: #000;
+  color: darkgray;
+  height: 60px;
+  width: 100%;
+}
+
+#body {
+  height: 85%;
+  width: 100%;
+}
+
+#footer {
+  background: black;
+  color: white;
+  height: 5%;
+  width: 98%;
+  padding: 1%;
+}
+
+#loginForm {
+  flex-direction: column;
+  height: auto;
+  width: 40%;
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+#loginForm input {
+  margin-top: 10px;
+  padding: 7px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  width: 50%;
+}
+
+#loginForm button {
+  background: green;
+  color: white;
+  border: 1px solid darkgreen;
+}
+
+@media (max-width: 600px) {
+  .dailyFormsRow {
+    flex-direction: column;
+  }
+}
