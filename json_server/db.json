@@ -1,0 +1,15 @@
+{
+  "user": [
+    {
+      "id": "1",
+      "name": "Ben Adegbaju",
+      "email": "benadegbaju@gmail.com",
+      "password": "",
+      "created_at": "",
+      "updated_at": "",
+      "api_token": "",
+      "device_token": ""
+    }
+  ],
+
+}

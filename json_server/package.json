@@ -1,0 +1,11 @@
+{
+  "name": "dummy-server",
+  "version": "1.0.0",
+  "description": "Dummy server for application",
+  "main": "db.json",
+  "author": "Ben Adegbaju",
+  "license": "MIT",
+  "dependencies": {
+    "json-server": "^0.16.1"
+  }
+}
