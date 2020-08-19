@@ -48,6 +48,47 @@ class UserGateway {
         }
     }
 
+    public function findByEmail($email)
+    {
+        $statement = "
+            SELECT
+                id, name, email, created_at, updated_at, device_token
+            FROM
+                users
+            WHERE email = ?;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($email));
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (\PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+
+    public function findLoginByEmail($email)
+    {
+        $statement = "
+            SELECT
+                id, name, email, password, created_at, updated_at, device_token
+            FROM
+                users
+            WHERE email = ?;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($email));
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (\PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
     public function insert(Array $input)
     {
         $statement = "

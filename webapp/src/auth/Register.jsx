@@ -9,6 +9,7 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
+      name: '',
       userLat: '',
       useLon: '',
       loginButton: 'hidden-el',
