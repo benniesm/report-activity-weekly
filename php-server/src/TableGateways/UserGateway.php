@@ -63,7 +63,7 @@ class UserGateway {
                 'name' => $input['name'],
                 'email'  => $input['email'],
                 'password'  => $input['password'],
-                'device_token' => $input['device_token'] ?? null,
+                'device_token' => $input['device_token'] ?? null
             ));
             return $statement->rowCount();
         } catch (\PDOException $e) {
@@ -90,7 +90,7 @@ class UserGateway {
                 'name' => $input['name'],
                 'email'  => $input['email'],
                 'password' => $input['password'],
-                'device_token' => $input['device_token'] ?? null,
+                'device_token' => $input['device_token'] ?? null
             ));
             return $statement->rowCount();
         } catch (\PDOException $e) {

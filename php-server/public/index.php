@@ -21,7 +21,7 @@ if ($uri[1] !== 'user' && $uri[1] !== 'locker' && $uri[1] !== 'workdone') {
 }
 
 // the user id is, of course, optional and must be a number:
-$userId = null;
+$requestId = null;
 if (isset($uri[2])) {
     $userId = (int) $uri[2];
 }
@@ -31,16 +31,16 @@ $requestMethod = $_SERVER["REQUEST_METHOD"];
 // pass the request method and user ID to the UserController and process the HTTP request:
 switch ($uri[1]) {
   case 'user':
-    $controller = new UserController($dbConnection, $requestMethod, $userId);
+    $controller = new UserController($dbConnection, $requestMethod, $requestId);
     break;
   case 'locker':
-    $controller = new LockerController($dbConnection, $requestMethod, $userId);
+    $controller = new LockerController($dbConnection, $requestMethod, $requestId);
     break;
   case 'workdone':
-    $controller = new WorkdoneController($dbConnection, $requestMethod, $userId);
-  default:
-    $controller = new DefaultController($dbConnection, $requestMethod, $userId);
+    $controller = new WorkdoneController($dbConnection, $requestMethod, $requestId);
     break;
+  default:
+    $controller = new DefaultController($dbConnection, $requestMethod, $requestId);
 }
 
 $controller->processRequest();

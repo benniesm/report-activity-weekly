@@ -1,7 +1,7 @@
 <?php
 namespace Src\TableGateways;
 
-class LockerGateway {
+class WorkdoneGateway {
 
     private $db = null;
 
@@ -14,9 +14,9 @@ class LockerGateway {
     {
         $statement = "
             SELECT
-                id, token, date, in_time, out_time, lat, lon, comments
+                id, lock_id, activity, achievement, time_in, comments, reviews, review_time
             FROM
-                locker;
+                workdone;
         ";
 
         try {
@@ -32,9 +32,9 @@ class LockerGateway {
     {
         $statement = "
             SELECT
-                id, token, date, in_time, out_time, lat, lon, comments
+                id, lock_id, activity, achievement, time_in, comments, reviews, review_time
             FROM
-                locker
+                workdone
             WHERE id = ?;
         ";
 
@@ -51,20 +51,19 @@ class LockerGateway {
     public function insert(Array $input)
     {
         $statement = "
-            INSERT INTO locker
-                (token, date, out_time, lat, lon, comments)
+            INSERT INTO workdone
+                (lock_id, activity, achievement, comments)
             VALUES
-                (:token, :date, :out_time, :lat, :lon, :comments);
+                (:lock_id, :activity, :achievement, :comments);
         ";
 
         try {
             $statement = $this->db->prepare($statement);
             $statement->execute(array(
-                'token' => 'token',
-                'date'  => '2020-08-18',
-                'lat'  => $input['lat'],
-                'lon' => $input['lon'],
-                'comments' => $input['comments'] ?? null
+                'lock_id' => $input['lock_id'],
+                'activity'  => $input['activity'],
+                'achievement'  => $input['achievement'],
+                'comments' => $input['comments'] ?? null,
             ));
             return $statement->rowCount();
         } catch (\PDOException $e) {
@@ -75,14 +74,13 @@ class LockerGateway {
     public function update($id, Array $input)
     {
         $statement = "
-            UPDATE locker
+            UPDATE workdone
             SET
-                token = :token,
-                date  = :date,
-                out_time  = :out_time,
-                lat = :lat,
-                lon = :lon,
-                comments = :comments
+                lock_id = :lock_id,
+                activity  = :activity,
+                achievement = :achievement,
+                comments = :comments,
+                reviews = :reviews
             WHERE id = :id;
         ";
 
@@ -90,12 +88,11 @@ class LockerGateway {
             $statement = $this->db->prepare($statement);
             $statement->execute(array(
                 'id' => (int) $id,
-                'token' => $input['token'],
-                //'date'  => $input['date'],
-                'out_time' => $input['out_time'],
-                'lat' => $input['lat'],
-                'lon' => $input['lon'],
-                'comments' => $input['comments'] ?? null
+                'lock_id' => $input['lock_id'],
+                'activity'  => $input['activity'],
+                'achievement' => $input['achievement'],
+                'comments' => $input['comments'] ?? null,
+                'reviews' => $input['reviews'] ?? null
             ));
             return $statement->rowCount();
         } catch (\PDOException $e) {
@@ -106,7 +103,7 @@ class LockerGateway {
     public function delete($id)
     {
         $statement = "
-            DELETE FROM locker
+            DELETE FROM workdone
             WHERE id = :id;
         ";
 
