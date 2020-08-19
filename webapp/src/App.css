@@ -18,7 +18,6 @@
 }
 
 button {
-  margin: 10px;
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
@@ -44,6 +43,18 @@ textarea {
   width: 90%;
   border: 1px solid #D1EB50;
   border-radius: 3px;
+}
+
+.btn-green {
+  background: green;
+  color: white;
+  border: 1px solid darkgreen;
+}
+
+.btn-black {
+  background: #000;
+  color: #fff;
+  border: none;
 }
 
 .btn-plain {
@@ -84,6 +95,14 @@ textarea {
   border-radius: 3px;
 }
 
+.hidden-el {
+  display: none;
+}
+
+.revealed-el {
+  display: inline-block;
+}
+
 #main {
   height: 100vh;
   width: 100%;
@@ -109,6 +128,10 @@ textarea {
   padding: 1%;
 }
 
+#loginArea {
+  width: 100%;
+}
+
 #loginForm {
   flex-direction: column;
   height: auto;
@@ -122,14 +145,8 @@ textarea {
   margin-top: 10px;
   padding: 7px;
   border: 1px solid gray;
-  border-radius: 5px;
-  width: 50%;
-}
-
-#loginForm button {
-  background: green;
-  color: white;
-  border: 1px solid darkgreen;
+  border-radius: 2px;
+  width: 85%;
 }
 
 @media (max-width: 600px) {
