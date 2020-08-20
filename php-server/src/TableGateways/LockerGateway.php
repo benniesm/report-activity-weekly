@@ -14,7 +14,7 @@ class LockerGateway {
     {
         $statement = "
             SELECT
-                id, token, date, in_time, out_time, lat, lon, comments
+                id, user_id, token, date, in_time, out_time, lat, lon, comments
             FROM
                 locker;
         ";
@@ -32,7 +32,7 @@ class LockerGateway {
     {
         $statement = "
             SELECT
-                id, token, date, in_time, out_time, lat, lon, comments
+                id, user_id, token, date, in_time, out_time, lat, lon, comments
             FROM
                 locker
             WHERE id = ?;
@@ -48,20 +48,43 @@ class LockerGateway {
         }
     }
 
+    public function findByDate($date, $user)
+    {
+        $statement = "
+            SELECT
+                id, user_id, date, in_time, out_time
+            FROM
+                locker
+            WHERE date = ?
+            AND user_id = ?;
+        ";
+
+        try {
+            $statement = $this->db->prepare($statement);
+            $statement->execute(array($date, $user));
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (\PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
     public function insert(Array $input)
     {
         $statement = "
             INSERT INTO locker
-                (token, date, out_time, lat, lon, comments)
+                (user_id, token, date, out_time, lat, lon, comments)
             VALUES
-                (:token, :date, :out_time, :lat, :lon, :comments);
+                (:user_id, :token, :date, :out_time, :lat, :lon, :comments);
         ";
 
         try {
             $statement = $this->db->prepare($statement);
             $statement->execute(array(
-                'token' => 'token',
-                'date'  => '2020-08-18',
+                'user_id'  => $input['user_id'],
+                'token'  => $input['token'],
+                'date'  => $input['date'],
+                'out_time' => $input['out_time'] ?? null,
                 'lat'  => $input['lat'],
                 'lon' => $input['lon'],
                 'comments' => $input['comments'] ?? null
@@ -77,6 +100,7 @@ class LockerGateway {
         $statement = "
             UPDATE locker
             SET
+                user_id = :user_id,
                 token = :token,
                 date  = :date,
                 out_time  = :out_time,
@@ -90,8 +114,9 @@ class LockerGateway {
             $statement = $this->db->prepare($statement);
             $statement->execute(array(
                 'id' => (int) $id,
+                'user_id' => $input['user_id'],
                 'token' => $input['token'],
-                //'date'  => $input['date'],
+                'date'  => $input['date'],
                 'out_time' => $input['out_time'],
                 'lat' => $input['lat'],
                 'lon' => $input['lon'],

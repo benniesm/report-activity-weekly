@@ -48,6 +48,14 @@ class RegistrationController {
             return $this->oneFoundResponse();
         }
 
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $rand_device = '';
+
+        for ($c = 0; $c < 21; $c++) {
+          $rand_device .= $characters[rand(0, strlen($characters)-1)];
+        }
+
+        $input['device_token'] = $rand_device;
         $input['password'] = password_hash($input['password'], PASSWORD_DEFAULT);
         $this->registerGateway->insert($input);
         $response['status_code_header'] = 'HTTP/1.1 201 Created';

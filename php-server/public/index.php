@@ -1,5 +1,6 @@
 <?php
 require "../bootstrap.php";
+use Src\Controller\Authenticator;
 use Src\Controller\LoginController;
 use Src\Controller\LockerController;
 use Src\Controller\RegistrationController;
@@ -32,8 +33,10 @@ if (isset($uri[2])) {
     $requestId = (int) $uri[2];
 }
 
-// authenticate the request with Okta:
-if (! authenticate()) {
+// authenticate the request
+$authenticator = new Authenticator($dbConnection);
+$access_granted = $authenticator->processCode();
+if (! $access_granted) {
     header("HTTP/1.1 401 Unauthorized");
     exit('Unauthorized');
 }
@@ -62,11 +65,3 @@ switch ($uri[1]) {
 }
 
 $controller->processRequest();
-
-function authenticate() {
-    if (true) {
-      return true;
-    }
-
-    return false;
-  }

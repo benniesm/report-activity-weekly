@@ -30,9 +30,6 @@ class LockerController {
                     $response = $this->getAllLockers();
                 };
                 break;
-            case 'POST':
-                $response = $this->createLockerFromRequest();
-                break;
             case 'PUT':
                 $response = $this->updateLockerFromRequest($this->lockerId);
                 break;

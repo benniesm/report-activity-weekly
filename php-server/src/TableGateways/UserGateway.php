@@ -14,7 +14,7 @@ class UserGateway {
     {
         $statement = "
             SELECT
-                id, name, email, created_at, updated_at, device_token
+                id, name, email, created_at, updated_at, device_token, auth_token
             FROM
                 users;
         ";
@@ -32,7 +32,7 @@ class UserGateway {
     {
         $statement = "
             SELECT
-                id, name, email, created_at, updated_at, device_token
+                id, name, email, created_at, updated_at, device_token, auth_token
             FROM
                 users
             WHERE id = ?;
@@ -52,7 +52,7 @@ class UserGateway {
     {
         $statement = "
             SELECT
-                id, name, email, created_at, updated_at, device_token
+                id, name, email, created_at, updated_at, device_token, auth_token
             FROM
                 users
             WHERE email = ?;
@@ -73,7 +73,7 @@ class UserGateway {
     {
         $statement = "
             SELECT
-                id, name, email, password, created_at, updated_at, device_token
+                id, name, email, password, created_at, updated_at, device_token, auth_token
             FROM
                 users
             WHERE email = ?;
@@ -93,9 +93,9 @@ class UserGateway {
     {
         $statement = "
             INSERT INTO users
-                (name, email, password, device_token)
+                (name, email, password, device_token, auth_token)
             VALUES
-                (:name, :email, :password, :device_token);
+                (:name, :email, :password, :device_token, :auth_token);
         ";
 
         try {
@@ -104,7 +104,8 @@ class UserGateway {
                 'name' => $input['name'],
                 'email'  => $input['email'],
                 'password'  => $input['password'],
-                'device_token' => $input['device_token'] ?? null
+                'device_token' => $input['device_token'],
+                'auth_token' => $input['auth_token'] ?? null
             ));
             return $statement->rowCount();
         } catch (\PDOException $e) {
@@ -120,7 +121,8 @@ class UserGateway {
                 name = :name,
                 email  = :email,
                 password = :password,
-                device_token = :device_token
+                device_token = :device_token,
+                auth_token = :auth_token
             WHERE id = :id;
         ";
 
@@ -131,7 +133,8 @@ class UserGateway {
                 'name' => $input['name'],
                 'email'  => $input['email'],
                 'password' => $input['password'],
-                'device_token' => $input['device_token'] ?? null
+                'device_token' => $input['device_token'] ?? null,
+                'auth_token' => $input['auth_token'] ?? null
             ));
             return $statement->rowCount();
         } catch (\PDOException $e) {

@@ -2,6 +2,7 @@
 namespace Src\Controller;
 
 use Src\TableGateways\UserGateway;
+use Src\TableGateways\LockerGateway;
 
 class LoginController {
 
@@ -18,6 +19,7 @@ class LoginController {
         $this->loginId = $loginId;
 
         $this->loginGateway = new userGateway($db);
+        $this->lockerGateway = new lockerGateway($db);
     }
 
     public function processRequest()
@@ -48,11 +50,39 @@ class LoginController {
             return $this->notFoundResponse();
         }
 
-        if (! password_verify($input['password'], $result[0]['password'])) {
+        $result = $result[0];
+
+        if (! password_verify($input['password'], $result['password'])) {
             return $this->invalidCredentialsResponse();
         }
 
-        $result[0]['password'] = null;
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $rand_auth = '';
+
+        for ($c = 0; $c < 51; $c++) {
+          $rand_auth .= $characters[rand(0, strlen($characters)-1)];
+        }
+
+        $locked_timestamp = date("Y-m-d H:i:s");
+
+        $locked = $this->lockerGateway->findByDate(date("Y-m-d"), $result['id']);
+        if ($locked && $locked[0]['out_time'] === null) {
+          $locked_timestamp = $locked[0]['in_time'];
+        } else {
+          $lock_data = array();
+          $lock_data['user_id'] = $result['id'];
+          $lock_data['token'] = $rand_auth;
+          $lock_data['date'] = date("Y-m-d");
+          $lock_data['lat'] = $input['lat'];
+          $lock_data['lon'] = $input['lon'];
+          $this->lockerGateway->insert($lock_data);
+        }
+
+        $result['auth_token'] = $rand_auth;
+        $this->loginGateway->update($result['id'], $result);
+
+        $result['password'] = null;
+        $result['locked_in_time'] = $locked_timestamp;
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode($result);
         return $response;
@@ -64,6 +94,12 @@ class LoginController {
             return false;
         }
         if (! isset($input['password'])) {
+            return false;
+        }
+        if (! isset($input['lat'])) {
+            return false;
+        }
+        if (! isset($input['lon'])) {
             return false;
         }
         return true;
