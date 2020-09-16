@@ -4,19 +4,21 @@ const Reports = (props) => {
   const ReportsIndex = () => props.listOfReports.map(report => {
     return (
         <tr key={report.id}>
-          <td>{report.id}</td>
-          <td>{report.name}</td>
+          <td>{report.activity}</td>
+          <td>{report.achievement}</td>
+          <td>{report.time_in}</td>
         </tr>
     );
   });
 
   return (
-    <div>
+    <div className="flex indexArea">
     <table>
       <thead>
         <tr>
-          <th>Id</th>
-          <th>Name</th>
+          <th>Activity</th>
+          <th>Achievements</th>
+          <th>Time logged</th>
         </tr>
       </thead>
       <tbody>

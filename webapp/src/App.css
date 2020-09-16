@@ -24,22 +24,35 @@ button {
 }
 
 table {
-  border: 1px solid gray;
   border-collapse: collapse;
 }
 
-td {
-  border: 1px solid gray;
+tr:nth-child(even) {
+  background: #FAFFDA;
 }
 
 th {
-  border: 1px solid gray;
+  background: #DDEC92;
+  padding: 12px;
+  text-align: left;
+}
+
+th:first-child {
+  border-top-left-radius: 10px;
+}
+
+th:last-child {
+  border-top-right-radius: 10px;
+}
+
+td {
+  padding: 10px 12px 10px 12px;
 }
 
 textarea {
-  margin: 10px;
-  padding: 10px;
-  height: 70px;
+  margin: 0 10px 10px 10px;
+  padding: 0 10px 10px 10px;
+  height: 65px;
   width: 90%;
   border: 1px solid #D1EB50;
   border-radius: 3px;
@@ -57,20 +70,31 @@ textarea {
   border: none;
 }
 
+.btn-orange {
+  background: orange;
+  border: none;
+}
+
+.btn-orange:hover {
+  background: red;
+}
+
 .btn-plain {
   background: none;
   border: 1px solid darkgray;
 }
 
 .btn-plain:hover {
-  background: black;
-  color: darkgray;
+  background: #F2F2F2;
+  color: #000;
 }
 
 .btn-bt {
   background: #D1EB50;
   color: #000;
   border: none;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 .btn-bt:hover {
@@ -81,18 +105,52 @@ textarea {
   border-radius: 5px;
   background: #F2FFAF;
   margin-top: 5px;
+  padding: 20px;
   width: 75%;
-  align-items: flex-start;
+  align-items: center;
+}
+
+.fullWidth {
+  width: 100%;
 }
 
 .dailyFormsRow {
   width: 100%;
 }
 
+.indexArea {
+  width: 100%;
+}
+
+.indexArea table {
+  width: 80%;
+}
+
+#navBar {
+  height: 60px;
+}
+
+.links {
+  color: #000;
+  text-decoration: none;
+  height: 40px;
+  width: auto;
+  margin: 5px;
+  padding: 10px;
+}
+
+.links:hover {
+  background: #B3CE2C;
+  color: #000;
+}
+
 .small-title {
-  background: #D1EB50;
-  padding: 7px;
+  background: #F2FFAF;
+  padding: 20px;
   border-radius: 3px;
+  width: 75%;
+  text-align: center;
+  font-weight: bold;
 }
 
 .hidden-el {
@@ -109,10 +167,13 @@ textarea {
 }
 
 #header {
-  background: #000;
-  color: darkgray;
+  background: #D1EB50;
   height: 60px;
-  width: 100%;
+  width: 96%;
+  position: absolute;
+  top: 0;
+  padding: 0 2% 0 2%;
+  justify-content: space-between;
 }
 
 #body {
@@ -121,11 +182,13 @@ textarea {
 }
 
 #footer {
-  background: black;
+  background: #222;
   color: white;
-  height: 5%;
+  height: 10px;
   width: 98%;
   padding: 1%;
+  position: absolute;
+  bottom: 0;
 }
 
 #loginArea {
