@@ -7,7 +7,7 @@
     "start": "cd xjs-server && node index.js",
     "start-watch": "cd xjs-server && nodemon index.js",
     "dev": "concurrently \"yarn run start-watch\" \"cd webapp && yarn start\"",
-    "heroku-postbuild": "cd webapp && npm install --only=dev && npm install && npm run build"
+    "heroku-postbuild": "cd xjs-server && npm install && npm run build && cd webapp && npm install --only=dev && npm install && npm run build"
   },
   "repository": "https://benniesm@bitbucket.org/benniesm/weekly-activity-report.git",
   "author": "Ben Adegbaju <benadegbaju@gmail.com>",
