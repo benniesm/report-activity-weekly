@@ -1,4 +1,4 @@
-const api = 'http://localhost:5000/';
+const api = '/';
 
 const user = api + 'user';
 const locker = api + 'locker';
