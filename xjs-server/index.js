@@ -9,7 +9,7 @@ const userRoute = require('./routes/user');
 const workdoneRoute = require('./routes/workdone');
 
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 5000;
 
 /*
 app.use((req, res, next) => {
