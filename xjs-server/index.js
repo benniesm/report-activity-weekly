@@ -11,14 +11,9 @@ const workdoneRoute = require('./routes/workdone');
 const app = express();
 const port = process.env.PORT || 5000;
 
-/*
-app.use((req, res, next) => {
-	res.append('Access-Control-Allow-Origin', '*');
-	res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS,HEAD');
-	res.append('Access-Control-Allow-Headers','Origin,X-Requested-With,Accept,Content-Type,Authorization,User');
-	next();
-});
-*/
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('../webapp/build'));
+}
 
 app.use(cors());
 app.use(bodyParser.json());

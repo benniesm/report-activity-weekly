@@ -4,7 +4,7 @@
   "description": "An app for recording activity and achievements daily",
   "main": "xjs-server/index.js",
   "scripts": {
-    "start": "concurrently \"cd xjs-server && node index.js\" \"cd webapp && yarn start\"",
+    "start": "cd xjs-server && node index.js",
     "start-watch": "cd xjs-server && nodemon index.js",
     "dev": "concurrently \"yarn run start-watch\" \"cd webapp && yarn start\"",
     "heroku-postbuild": "cd webapp && npm install --only=dev && npm install && npm run build"
