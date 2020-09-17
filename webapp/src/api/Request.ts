@@ -68,18 +68,18 @@ const requestGet = async(params: Params) => {
   const paramsBody = params.body === '' ? '' : '?' + params.body;
 
   const getUrl = (urlLinks as any)[params.uri] + paramsUriId + paramsBody;
-//console.log(getUrl);
-//console.log(headers);
+  //console.log(getUrl);
+  //console.log(headers);
   const getResponse = await axios.get(getUrl, {headers: headers})
     .then(response => {
-      console.log(response);
+      //console.log(response);
       return response;
     })
     .catch(error => {
-      console.log(error);
+      //console.log(error);
       return processErrors(error);
     });
-    console.log(getResponse.data.headers)
+
   return getResponse;
 }
 
@@ -93,11 +93,11 @@ const requestPost = async(params: Params) => {
   console.log(params);
   const postResponse = await axios.post(postUrl, params.body, headers as any)
     .then(response => {
-      console.log(response);
+      //console.log(response);
       return(response);
     })
     .catch(error => {
-      console.log(error);
+      //console.log(error);
       return processErrors(error);
     });
 

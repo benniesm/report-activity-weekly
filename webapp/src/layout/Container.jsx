@@ -21,7 +21,7 @@ class ContainerComp extends Component {
   }
 
   componentDidMount = async() => {
-    console.log(this.gState.auth);
+    //console.log(this.gState.auth);
     const authenticate = await authenticator(this.gState.auth);
 
     if (! authenticate) {

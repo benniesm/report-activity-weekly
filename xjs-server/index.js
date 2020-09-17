@@ -32,7 +32,7 @@ app.use(async(req, res, next) => {
 		req.headers.user,
 		req.headers.authorization
 		);
-	console.log({auth: authenticated});
+	//console.log({auth: authenticated});
 	
 	if (!authenticated) {
 		res.status(401);
