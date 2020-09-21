@@ -10,7 +10,7 @@ interface Params {
   uriId: string,
   authToken: string,
   userId: string,
-  body: string
+  body: any
 }
 
 interface Url {
@@ -93,7 +93,7 @@ const requestPost = async(params: Params) => {
   const postUrl = (urlLinks as any)[params.uri] + paramsUriId;
   //console.log(postUrl);
   //console.log(params);
-  const postResponse = await axios.post(postUrl, params.body, headers as any)
+  const postResponse = await axios.post(postUrl, params.body, {headers: headers})
     .then(response => {
       //console.log(response);
       return(response);

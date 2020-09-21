@@ -8,7 +8,8 @@ import '../App.css';
 import Header from '../components/Header';
 import Dashboard from '../pages/Dashboard';
 import CreateReport from '../pages/CreateReport';
-import ViewReport from '../pages/ViewReport';
+import ViewUsers from '../pages/ViewUsers';
+import ViewUserActivity from '../pages/ViewUserActivity';
 
 class ContainerComp extends Component {
   constructor(props) {
@@ -54,7 +55,8 @@ class ContainerComp extends Component {
             />
             <Route path="/app" exact component={Dashboard} />
             <Route path="/create-report" exact component={CreateReport} />
-            <Route path="/view-report" exact component={ViewReport} />
+            <Route path="/view-users" exact component={ViewUsers} />
+            <Route path="/view-user-activity" exact component={ViewUserActivity} />
           </Router>
         </div>
         <div className="flex" id="footer">

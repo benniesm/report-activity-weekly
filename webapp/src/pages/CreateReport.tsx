@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '../store/StateDispatch';
-import getUserRequest from '../api/Request';
 import { Redirect } from 'react-router-dom';
+import getUserRequest from '../api/Request';
 
 interface CustomProps {
     state: {
@@ -12,7 +12,9 @@ interface CustomProps {
           lock_id: string,
           auth_token: string
         }
-      }
+      },
+      loadOn: Function,
+      loadOff: Function
     }
 }
 
@@ -55,16 +57,18 @@ class CreateReportComp extends Component <CustomProps, State, Event> {
 
   handleSubmit = async(event: any) => {
     event.preventDefault();
+    const authData = this.props.state.auth.authData;
     const params = {
       uri: 'workdone',
       uriId: '',
-      authToken: this.props.state.auth.authData.auth_token,
-      userId: this.props.state.auth.authData.id,
-      body: JSON.stringify({
-        lock_id: this.props.state.auth.authData.lock_id,
+      authToken: authData.auth_token,
+      userId: authData.id,
+      body: {
+        lock_id: authData.lock_id,
         activity: this.state.activity,
-        achievement: this.state.achievement
-      })
+        achievement: this.state.achievement,
+        comments: this.state.comments
+      }
     }
 
     const requestResponse = await getUserRequest('post', params);
@@ -85,25 +89,28 @@ class CreateReportComp extends Component <CustomProps, State, Event> {
     }
 
     return (
-      <div className="flex flex-col page">
+      <div className="flex flex-col" style={{width: '100%'}}>
         <>
         <div className="small-title">
           Record your activity and achievements below
         </div>
         <form className="flex flex-col dailyForms" onSubmit={this.handleSubmit}>
-          <h5>Activities</h5>
-          <textarea
+          <span>Activities</span>
+          <input
             className="flex flex-col fullWidth"
             name="activity"
             value={this.state.activity}
             onChange={this.handleChange}
+            style={{margin: '10px', padding: '7px', width: '100%'}}
+            required
           />
-          <h5>Achievements</h5>
+          <span>Achievements</span>
           <textarea
             className="flex flex-col fullWidth"
             name="achievement"
             value={this.state.achievement}
             onChange={this.handleChange}
+            required
           />
           <br/>
           <span>Additional comments</span>
@@ -112,7 +119,7 @@ class CreateReportComp extends Component <CustomProps, State, Event> {
             name="comments"
             value={this.state.comments}
             onChange={this.handleChange}
-            style={{margin: '10px', padding: '7px', width: '85%'}}
+            style={{margin: '10px', padding: '7px', width: '100%'}}
           />
         <input type="submit" value="Submit report" className="btn-bt" />
         </form>

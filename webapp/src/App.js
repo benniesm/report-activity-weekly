@@ -22,7 +22,8 @@ const AppComp = (props) => {
         <Route path="/login" exact component={Login} />
         <Route path="/app" exact component={Container} />
         <Route path="/create-report" exact component={Container} />
-        <Route path="/view-report" exact component={Container} />
+        <Route path="/view-users" exact component={Container} />
+        <Route path="/view-user-activity" exact component={Container} />
       </Router>
     </div>
   )

@@ -66,7 +66,7 @@ class LoginComp extends Component {
 
   handleSubmit = async(event) => {
     event.preventDefault();
-    const authData = this.props.state.authData;
+    const authData = this.props.state.auth.authData;
     const params = {
       uri: 'login',
       uriId: '',

@@ -32,7 +32,7 @@ const Header = (props) => {
       <div className="flex" id="navBar">
         <Link to="/app" className="flex links" >Dashboard</Link>
         <Link to="/create-report" className="flex links" >Create Activity Report</Link>
-        <Link to="/view-report" className="flex links" >View Report</Link>
+        <Link to="/view-users" className="flex links" >View Staff Activities</Link>
       </div>
       <button className="btn-orange" onClick={() => logout(props)}>
         Log out

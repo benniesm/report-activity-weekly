@@ -1,41 +1,58 @@
-const con = require('./dbConnect');
-let data = [];
+const pool = require('./dbConnect');
 
 const workdoneGateway = {
     find: () => {
         const sql = `SELECT * FROM workdone`;
 
         return new Promise ((resolve, reject) => {
-            con.query(sql, (err, result) => {
+            pool.query(sql, (err, result) => {
                 if (err) {
+                    console.log(err);
                     reject(err);
                 };
-                data = result;
-                resolve(data);
+                console.log(result);
+                resolve(result);
             });
         });
     },
-    findOne: (id) => {
-        const sql = `SELECT * FROM workdone WHERE id = ${id}`;
+    findDates: (info) => {
+        const sql = `SELECT * FROM workdone WHERE user = '${info.user}' AND time_in BETWEEN '${info.start}' AND '${indo.end}'`;
 
         return new Promise ((resolve, reject) => {
-            con.query(sql, (err, result) => {
+            pool.query(sql, (err, result) => {
                 if (err) {
+                    console.log(err);
                     reject(err);
-                };
-                data = result;
-                resolve(data);
+                }
+                console.log(result);
+                resolve(result);
+            });
+        });
+    },
+    findOne: (lock) => {
+        let today = new Date();
+        const dd = String(today.getDate()).padStart(2, '0');
+        const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        const yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd + ' ' + '00:00:00';
+
+        const sql = `SELECT * FROM workdone WHERE lock_id = ${lock} AND time_in >= '${today}'`;
+
+        //console.log(sql);
+        return new Promise ((resolve, reject) => {
+            pool.query(sql, (err, result) => {
+                if (err) reject(err);
+                resolve(result);
             });
         });
     },
     insert: (info) => {
-        const sql = `INSERT INTO workdone (lock_id, activity, achievement, comments) VALUES ('${info.lockId}', '${info.activity}', '${info.achievement}', '${info.comment}')`;
+        const sql = `INSERT INTO workdone (lock_id, activity, achievement, comments) VALUES ('${info.lock_id}', '${info.activity}', '${info.achievement}', '${info.comments}')`;
 
         return new Promise ((resolve, reject) => {
-            con.query(sql, (err, result) => {
-                if (err) {
-                    reject(err);
-                };
+            pool.query(sql, (err, result) => {
+                if (err) reject(err);
                 resolve(result ? result.affectedRows : null);
             });
         });
@@ -44,7 +61,7 @@ const workdoneGateway = {
         const sql = `UPDATE workdone SET activity = '${info.activity}', achievement = '${info.achievement}', comments = '${info.comments}', reviews = '${info.reviews}', review_time = '${info.reviewTime}' WHERE id = '${id}'`;
 
         return new Promise ((resolve, reject) => {
-            con.query(sql, (err, result) => {
+            pool.query(sql, (err, result) => {
                 if (err) {
                     reject(err);
                 };
@@ -56,7 +73,7 @@ const workdoneGateway = {
         const sql = `DELETE FROM workdone WHERE id = '${id}'`;
 
         return new Promise ((resolve, reject) => {
-            con.query(sql, (err, result) => {
+            pool.query(sql, (err, result) => {
                 if (err) {
                     reject(err);
                 };

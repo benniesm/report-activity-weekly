@@ -9,12 +9,20 @@
 }
 
 .page {
-  min-height: 100vh;
+  padding: 70px 0 70px 0;
   width: 100%;
 }
 
 .fullWidth {
   width: 100%;
+}
+
+.clickDiv {
+  cursor: pointer;
+}
+
+.clickDiv:hover {
+  border: 3px solid #BBE100;
 }
 
 button {
@@ -101,6 +109,28 @@ textarea {
   background: #BBE100;
 }
 
+.cardItem {
+  margin: 10px;
+  width: 70%;
+  border: 1px solid #BBE100;
+  border-radius: 4px;
+}
+
+.cardItemTitle {
+  background: #D1EB50;
+  font-weight: bold;
+  padding: 7px;
+}
+
+.cardItemInfo {
+  padding: 7px;
+}
+
+.cardItemTime {
+  font-weight: bold;
+  font-size: 0.75em;
+}
+
 .dailyForms {
   border-radius: 5px;
   background: #F2FFAF;
@@ -108,6 +138,10 @@ textarea {
   padding: 20px;
   width: 75%;
   align-items: center;
+}
+
+.dailyForms input {
+  border: 1px solid #BBE100;
 }
 
 .fullWidth {
@@ -167,11 +201,13 @@ textarea {
 }
 
 #loading {
-  height: 100vh;
+  min-height: 100%;
   width: 100%;
   position: absolute;
   z-index: 99;
   opacity: 0.8;
+  top: 0;
+  bottom: 0;
   background: #000;
 }
 
@@ -184,7 +220,7 @@ textarea {
   background: #D1EB50;
   height: 60px;
   width: 96%;
-  position: absolute;
+  position: fixed;
   top: 0;
   padding: 0 2% 0 2%;
   justify-content: space-between;
@@ -201,8 +237,8 @@ textarea {
   height: 10px;
   width: 98%;
   padding: 1%;
-  position: absolute;
   bottom: 0;
+  position: fixed;
 }
 
 #loginArea {

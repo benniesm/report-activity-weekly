@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '../store/StateDispatch';
+import { Redirect } from 'react-router-dom';
 import getUserRequest from '../api/Request';
-import Reports from '../components/Reports';
+import Users from '../components/Users';
 
 interface CustomProps {
   state: {
@@ -20,29 +21,28 @@ interface CustomProps {
 }
 
 interface State {
-  listOfReports: Array<object>
+  listOfUsers: Array<object>,
+  redirect: boolean,
+  target: string
 }
 
-interface Response {
-  status: number,
-  data: object
-}
-
-class DashboardComp extends Component <CustomProps, State, Response> {
+class ViewUsersComp extends Component <CustomProps, State> {
   constructor(props: any) {
     super(props);
     const stateProps: State = {
-      listOfReports: []
+      listOfUsers: [],
+      redirect: false,
+      target: ''
     }
 
     this.state = stateProps;
   }
 
-  getReports = async(sProps: any) => {
+  getUsers = async(sProps: any) => {
     const authData = sProps.state.auth.authData;
     const params = {
-      uri: 'workdone',
-      uriId: authData.lock_id,
+      uri: 'user',
+      uriId: '',
       authToken: authData.auth_token,
       userId: authData.id,
       body: ''
@@ -55,8 +55,8 @@ class DashboardComp extends Component <CustomProps, State, Response> {
 
     if (requestResponse.status === 200) {
       if (requestResponse.data.data.length > 0
-        && requestResponse.data.data[0].hasOwnProperty('activity')) {
-          this.setState({listOfReports: requestResponse.data.data});
+        && requestResponse.data.data[0].hasOwnProperty('name')) {
+          this.setState({listOfUsers: requestResponse.data.data});
       }
       return;
     }
@@ -64,21 +64,32 @@ class DashboardComp extends Component <CustomProps, State, Response> {
     return;
   }
 
+  viewActivity = (id: any) => {
+    this.setState({redirect: true, target: '/view-user-activity'});
+  }
+
   componentDidMount = () => {
     const sProps: CustomProps = this.props;
-    this.getReports(sProps);
+     this.getUsers(sProps);
   }
 
   render() {
     const state = this.state;
 
+    if (state.redirect) {
+        return <Redirect to={state.target} />
+    }
+
     return (
       <div className="flex flex-col fullWidth">
-        <h2>Activities today</h2>
-        <Reports listOfReports={state.listOfReports} />
+        <Users
+          listOfUsers={state.listOfUsers}
+          viewActivity={this.viewActivity}
+        />
       </div>
     );
   }
 }
-const Dashboard = connect(mapStateToProps, mapDispatchToProps)(DashboardComp);
-export default Dashboard;
+
+const ViewUsers = connect(mapStateToProps, mapDispatchToProps)(ViewUsersComp);
+export default ViewUsers;

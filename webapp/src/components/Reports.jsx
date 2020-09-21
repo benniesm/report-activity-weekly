@@ -2,29 +2,35 @@ import React from 'react';
 
 const Reports = (props) => {
   const ReportsIndex = () => props.listOfReports.map(report => {
+    let time_in = new Date(report.time_in)
     return (
-        <tr key={report.id}>
-          <td>{report.activity}</td>
-          <td>{report.achievement}</td>
-          <td>{report.time_in}</td>
-        </tr>
+      <div className="cardItem" key={report.id}>
+        <div className="cardItemTitle">
+          {report.activity}
+        </div>
+        <div className="cardItemInfo">
+          {report.achievement.split('\n').map((lineText) => {
+            return <span>{lineText}<br/></span>
+          })}
+          <div>
+            {
+              report.comments !== null && report.comments !== '' ?
+                <div><i><b>Comments:</b> {report.comments}</i></div>
+                :
+                ''
+            }
+          </div>
+          <div className="cardItemTime">
+            {time_in.getHours() + ':' + time_in.getMinutes()}
+          </div>
+        </div>
+      </div>
     );
   });
 
   return (
-    <div className="flex indexArea">
-    <table>
-      <thead>
-        <tr>
-          <th>Activity</th>
-          <th>Achievements</th>
-          <th>Time logged</th>
-        </tr>
-      </thead>
-      <tbody>
-        <ReportsIndex />
-      </tbody>
-    </table>
+    <div className="flex flex-col indexArea">
+      <ReportsIndex />
     </div>
   );
 }

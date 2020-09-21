@@ -54,7 +54,7 @@ class DefaultComp extends Component <CustomProps, State> {
     this.props.loadOff();
   }
 
-  render () {
+  render() {
     const state = this.state;
 
     if (state.redirect) {
