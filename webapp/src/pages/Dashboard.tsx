@@ -14,7 +14,9 @@ interface CustomProps {
         auth_token: string
       }
     }
-  }
+  },
+  loadOn: Function,
+  loadOff: Function
 }
 
 interface State {
@@ -46,8 +48,11 @@ class DashboardComp extends Component <CustomProps, State, Response> {
       body: ''
     }
 
+    this.props.loadOn();
     const requestResponse = await getUserRequest('get', params);
-//console.log(requestResponse);
+    this.props.loadOff();
+    //console.log(requestResponse);
+
     if (requestResponse.status === 200) {
       if (requestResponse.data.data.length > 0
         && requestResponse.data.data[0].hasOwnProperty('activity')) {

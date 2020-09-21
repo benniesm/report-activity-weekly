@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { mapStateToProps, mapDispatchToProps } from '../store/StateDispatch';
 import { Redirect } from 'react-router-dom';
 import getUserRequest from '../api/Request';
-import errorMessage from '../operations/ApiRequestErrors';
 import '../App.css';
 
-class Register extends Component {
+class RegisterComp extends Component {
   constructor () {
     super();
 
@@ -28,19 +29,27 @@ class Register extends Component {
     event.preventDefault();
     const params = {
       uri: 'register',
-      uriId: null,
-      body: JSON.stringify({
+      uriId: '',
+      body: {
         name: this.state.name,
         email: this.state.email,
         password: this.state.password
-      })
+      }
     }
 
+    this.props.loadOn();
     const requestResponse = await getUserRequest('post', params);
+    this.props.loadOff();
 
     if (requestResponse.status > 299) {
-      const errMsg = errorMessage(requestResponse);
-      return window.alert(errMsg);
+      switch (requestResponse.status) {
+        case 409:
+          return window.alert('Email has already been registered');
+        case 500:
+          return window.alert('Server error. \n Try again or contact admin');     
+        default:
+          return window.alert('Unknown response');
+      }
     }
 
     if (requestResponse.status === 201) {
@@ -59,6 +68,10 @@ class Register extends Component {
 
   goToLogin = () => {
     this.setState({redirect: true, target: './login'});
+  }
+
+  componentDidMount = () => {
+    this.props.loadOff();
   }
 
   render() {
@@ -116,4 +129,5 @@ class Register extends Component {
   };
 };
 
+const Register = connect(mapStateToProps, mapDispatchToProps)(RegisterComp);
 export default Register;

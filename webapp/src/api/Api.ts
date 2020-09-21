@@ -4,6 +4,7 @@ const user = api + 'user';
 const locker = api + 'locker';
 const workdone = api + 'workdone';
 const login = api + 'login';
+const logout = api + 'logout';
 const register = api + 'register';
 
 /*
@@ -21,6 +22,7 @@ const url =  {
   locker: locker,
   workdone: workdone,
   login: login,
+  logout: logout,
   register: register
 };
 

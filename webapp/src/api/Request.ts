@@ -49,6 +49,8 @@ const processErrors = (err: any) => {
       return returnParams;
     case 405:
       return returnParams;
+    case 406:
+      return returnParams;
     case 409:
       return returnParams;
     case 422:
@@ -89,8 +91,8 @@ const requestPost = async(params: Params) => {
 
   const paramsUriId = params.uriId ===  '' ? '' : '/' + params.uriId;
   const postUrl = (urlLinks as any)[params.uri] + paramsUriId;
-  console.log(postUrl);
-  console.log(params);
+  //console.log(postUrl);
+  //console.log(params);
   const postResponse = await axios.post(postUrl, params.body, headers as any)
     .then(response => {
       //console.log(response);

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '../store/StateDispatch';
 import { Redirect } from 'react-router-dom';
 import getUserRequest from '../api/Request';
-import errorMessage from '../operations/ApiRequestErrors';
 import '../App.css';
 
 class LoginComp extends Component {
@@ -80,23 +79,37 @@ class LoginComp extends Component {
       }
     }
 
+    this.props.loadOn();
     const requestResponse = await getUserRequest('post', params);
+    this.props.loadOff();
 
     if (requestResponse.status > 299) {
-      const errMsg = errorMessage(requestResponse);
-      return window.alert(errMsg);
+      //console.log(requestResponse);
+      switch (requestResponse.status) {
+        case 404:
+          return window.alert('User not found');
+        case 406:
+          return window.alert('Invalid login credentials');
+        case 500:
+          return window.alert('Server error. \n Try again or contact admin');
+        default:
+          return window.alert('Unknown response');
+      }
     }
 
     if (requestResponse.status === 200) {
       //console.log(requestResponse.data.data)
       this.props.authenticate(requestResponse.data.data);
       window.alert('Login successful!');
-      return this.setState({
+
+      this.setState({
         name: '',
         password: '',
         redirect: true,
         target: './app'
       });
+
+      return;
     }
 
     return window.alert('Unsuccessful, please try again');
@@ -104,6 +117,10 @@ class LoginComp extends Component {
 
   goToRegister = () => {
     this.setState({redirect: true, target: '/register'});
+  }
+
+  componentDidMount = () => {
+    this.props.loadOff();
   }
 
   render() {
@@ -127,6 +144,7 @@ class LoginComp extends Component {
               onChange={this.handleChange}
               value={this.state.email}
               autoComplete="username"
+              required
             />
             <input
               className={this.state.loginButton}
@@ -136,6 +154,7 @@ class LoginComp extends Component {
               onChange={this.handleChange}
               value={this.state.password}
               autoComplete="current-password"
+              required
             />
             <input
               type="submit"

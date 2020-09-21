@@ -14,7 +14,9 @@ interface CustomProps {
         auth_token: string
       }
     }
-  }
+  },
+  loadOn: Function,
+  loadOff: Function
 }
 
 interface State {
@@ -33,14 +35,23 @@ class DefaultComp extends Component <CustomProps, State> {
     this.state = stateProps;
   }
 
-  authenticate = async(auth: any) => {
-  console.log(auth);
-    const authenticate = await authenticator(auth);
+  authenticate = async(props: any) => {
+    props.loadOn();
+    console.log(props);
+    const authenticate = await authenticator(props.state.auth);
     if (! authenticate) {
+      props.loadOff();
+      console.log(props.state.loading);
       return this.setState({redirect: true, target: '/login'});
     }
 
+    props.loadOff();
+    console.log(props.state.loading);
     return this.setState({redirect: true, target: '/app'});
+  }
+
+  componentDidMount = () => {
+    this.props.loadOff();
   }
 
   render () {
@@ -53,7 +64,7 @@ class DefaultComp extends Component <CustomProps, State> {
     }
 
     return (
-      <button onClick={() => this.authenticate(this.props.state.auth)} className="btn-plain">
+      <button onClick={() => this.authenticate(this.props)} className="btn-plain">
         Click here to continue
       </button>
     )

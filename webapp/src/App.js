@@ -1,29 +1,32 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { persistor, store } from './store/Store';
-import { PersistGate } from 'redux-persist/lib/integration/react';
+import { connect } from 'react-redux';
+import { mapStateToProps, mapDispatchToProps } from './store/StateDispatch';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
+import Loading from './components/Loading';
 import Default from './pages/Default';
 import Login from './auth/Login';
 import Register from './auth/Register';
 import Container from './layout/Container';
 
-function App() {
+const AppComp = (props) => {
+  //console.log(props.state.loading.load);
   return (
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <div className="flex" id="main">
-          <Router>
-            <Route path="/" exact component={Default} />
-            <Route path="/app" exact component={Container} />
-            <Route path="/register" exact component={Register} />
-            <Route path="/login" exact component={Login} />
-          </Router>
-        </div>
-      </PersistGate>
-    </Provider>
-  );
+    <div className="flex" id="main">
+      {        
+        props.state.loading.load ? <Loading /> : null
+      }
+      <Router>
+        <Route path="/" exact component={Default} />
+        <Route path="/register" exact component={Register} />
+        <Route path="/login" exact component={Login} />
+        <Route path="/app" exact component={Container} />
+        <Route path="/create-report" exact component={Container} />
+        <Route path="/view-report" exact component={Container} />
+      </Router>
+    </div>
+  )
 }
 
+const App = connect(mapStateToProps, mapDispatchToProps)(AppComp);
 export default App;

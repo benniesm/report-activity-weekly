@@ -21,12 +21,18 @@ class ContainerComp extends Component {
   }
 
   componentDidMount = async() => {
-    //console.log(this.gState.auth);
+    //console.log(this.gState.loading);
+    this.props.loadOn();
     const authenticate = await authenticator(this.gState.auth);
+    this.props.loadOff();
 
     if (! authenticate) {
       return this.setState({redirect: true, target: '/login'});
     }
+  }
+
+  logout = () => {
+    return this.setState({redirect: true, target: '/login'});
   }
 
   render() {
@@ -34,11 +40,18 @@ class ContainerComp extends Component {
         return <Redirect to={this.state.target} />
     }
 
+    //console.log(this.gState.auth)
     return (
       <div className="flex flex-col page">
         <div className="flex" id="body">
           <Router>
-            <Header props={{deauthenticate: () => this.props.deauthenticate()}} />
+            <Header
+              deauth={this.props.deauthenticate}
+              loadOn={this.props.loadOn}
+              loadOff={this.props.loadOff}
+              id={this.gState.auth.authData.id}
+              logout={this.logout}
+            />
             <Route path="/app" exact component={Dashboard} />
             <Route path="/create-report" exact component={CreateReport} />
             <Route path="/view-report" exact component={ViewReport} />

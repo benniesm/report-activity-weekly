@@ -162,8 +162,22 @@ textarea {
 }
 
 #main {
+  min-height: 100vh;
+  width: 100%;
+}
+
+#loading {
   height: 100vh;
   width: 100%;
+  position: absolute;
+  z-index: 99;
+  opacity: 0.8;
+  background: #000;
+}
+
+#imgLoading {
+  width: 100px;
+  height: auto;
 }
 
 #header {
