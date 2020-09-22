@@ -232,6 +232,7 @@ textarea {
   top: 0;
   padding: 0 2% 0 2%;
   justify-content: space-between;
+  z-index: 99;
 }
 
 #body {
@@ -243,8 +244,8 @@ textarea {
   background: #222;
   color: white;
   height: 10px;
-  width: 98%;
-  padding: 1%;
+  width: 100%;
+  padding: 12px 0 12px 0;
   bottom: 0;
   position: fixed;
 }
@@ -274,4 +275,17 @@ textarea {
   .dailyFormsRow {
     flex-direction: column;
   }
+
+  .links {
+    padding: 0 7px 0 7px;
+  }
+
+  .page {
+    padding: 60% 0 10% 0;
+  }
+  
+  #header, #navBar {
+     flex-direction: column;
+     height: auto;
+   }
 }

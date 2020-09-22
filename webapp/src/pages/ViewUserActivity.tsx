@@ -55,12 +55,7 @@ class ViewUserActivityComp extends Component <CustomProps, State, Event> {
     this.state = stateProps;
   }
 
-  handleSubmit = async(event: any) => {
-    event.preventDefault();
-    const state = this.props.state;
-    const dStart = new Date(this.state.start);
-    const dEnd = new Date(this.state.end);
-
+  dateFormatter = (dStart, dEnd) => {
     const dateSt = dStart.getFullYear()
       + '-' + (dStart.getMonth() + 1)
       + '-' + dStart.getDate();
@@ -69,12 +64,23 @@ class ViewUserActivityComp extends Component <CustomProps, State, Event> {
       + '-' + (dEnd.getMonth() + 1)
       + '-' + dEnd.getDate();
 
+      return ({dateSt, dateEn});
+  }
+
+  handleSubmit = async(event: any) => {
+    event.preventDefault();
+    const state = this.props.state;
+    const dStart = new Date(this.state.start);
+    const dEnd = new Date(this.state.end);
+
+    const dateForm = this.dateFormatter(dStart, dEnd);
+
     const params = {
       uri: 'workdoneDate',
       uriId: state.activity.user,
       authToken: state.auth.authData.auth_token,
       userId: state.auth.authData.id,
-      body: dateSt + '/' + dateEn
+      body: dateForm.dateSt + '/' + dateForm.dateEn
     }
 
     this.props.loadOn();
@@ -101,6 +107,10 @@ class ViewUserActivityComp extends Component <CustomProps, State, Event> {
     const activities = this.state.listOfActivities.map((activity: any) => {
       return activity.id;
     });
+    const dStart = new Date(this.state.start);
+    const dEnd = new Date(this.state.end);
+
+    const dateForm = this.dateFormatter(dStart, dEnd);
 
     const params = {
       uri: 'review',
@@ -111,10 +121,10 @@ class ViewUserActivityComp extends Component <CustomProps, State, Event> {
         user_id: state.activity.user,
         mgr_id: state.auth.authData.id,
         mgr_name: state.auth.authData.name,
-        start_date: this.state.start,
-        end_date: this.state.end,
+        start_date: dateForm.dateSt,
+        end_date: dateForm.dateEn,
         workdone_ids: activities.toString(),
-        review: review
+        review: review.replace(/[./'"*+?^${}()|[\]\\]/g, '\\$&')
       }
     }
 

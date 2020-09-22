@@ -66,9 +66,9 @@ class CreateReportComp extends Component <CustomProps, State, Event> {
       body: {
         user_id: authData.id,
         lock_id: authData.lock_id,
-        activity: this.state.activity,
-        achievement: this.state.achievement,
-        comments: this.state.comments
+        activity: this.state.activity.replace(/[./'"*+?^${}()|[\]\\]/g, '\\$&'),
+        achievement: this.state.achievement.replace(/[./'"*+?^${}()|[\]\\]/g, '\\$&'),
+        comments: this.state.comments.replace(/[./'"*+?^${}()|[\]\\]/g, '\\$&')
       }
     }
 

@@ -34,7 +34,7 @@ const Header = (props) => {
         <Link to="/create-report" className="flex links" >Create Activity Report</Link>
         <Link to="/view-users" className="flex links" >View Staff Activities</Link>
       </div>  
-      <i>{props.name}</i>
+      <h5><i>{props.name}</i></h5>
       <button className="btn-orange" onClick={() => logout(props)}>
         Log out
       </button>
