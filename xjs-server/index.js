@@ -6,6 +6,7 @@ const authenticator = require('./routes/auth/authenticator');
 const loginRoute = require('./routes/auth/login');
 const logoutRoute = require('./routes/auth/logout');
 const lockerRoute = require('./routes/locker');
+const reviewRoute = require('./routes/review');
 const userRoute = require('./routes/user');
 const workdoneRoute = require('./routes/workdone');
 
@@ -42,6 +43,7 @@ app.use(async(req, res, next) => {
 });
 
 app.use('/locker', lockerRoute);
+app.use('/review', reviewRoute);
 app.use('/user', userRoute);
 app.use('/workdone', workdoneRoute);
 app.use('/workdone/date', workdoneRoute);

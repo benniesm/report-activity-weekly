@@ -17,7 +17,8 @@ interface CustomProps {
     }
   },
   loadOn: Function,
-  loadOff: Function
+  loadOff: Function,
+  setUser: Function
 }
 
 interface State {
@@ -64,7 +65,8 @@ class ViewUsersComp extends Component <CustomProps, State> {
     return;
   }
 
-  viewActivity = (id: any) => {
+  viewActivity = (id: any, name: string) => {
+    this.props.setUser(id, name);
     this.setState({redirect: true, target: '/view-user-activity'});
   }
 

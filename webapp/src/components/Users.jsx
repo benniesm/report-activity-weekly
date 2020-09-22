@@ -6,11 +6,11 @@ const Users = (props) => {
     
     return (
       <div
-      className="cardItem clickDiv"
+      className="cardItem clickDiv bGreen"
       key={user.id}
-      onClick={() => props.viewActivity(user.id)}
+      onClick={() => props.viewActivity(user.id, user.name)}
       >
-        <div className="cardItemTitle">
+        <div className="cardItemTitle bGreen">
           {user.name}
         </div>
         <div className="cardItemInfo">

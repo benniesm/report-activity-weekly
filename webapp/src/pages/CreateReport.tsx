@@ -64,6 +64,7 @@ class CreateReportComp extends Component <CustomProps, State, Event> {
       authToken: authData.auth_token,
       userId: authData.id,
       body: {
+        user_id: authData.id,
         lock_id: authData.lock_id,
         activity: this.state.activity,
         achievement: this.state.achievement,

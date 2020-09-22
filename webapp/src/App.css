@@ -109,15 +109,23 @@ textarea {
   background: #BBE100;
 }
 
+.bBlue {
+  background: #93e1ff;
+  border: 1px solid #93e1ff;
+}
+
+.bGreen {
+  background: #DDEC92;
+  border: 1px solid #DDEC92;
+}
+
 .cardItem {
   margin: 10px;
   width: 70%;
-  border: 1px solid #BBE100;
   border-radius: 4px;
 }
 
 .cardItemTitle {
-  background: #D1EB50;
   font-weight: bold;
   padding: 7px;
 }

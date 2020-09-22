@@ -51,6 +51,7 @@ class ContainerComp extends Component {
               loadOn={this.props.loadOn}
               loadOff={this.props.loadOff}
               id={this.gState.auth.authData.id}
+              name={this.gState.auth.authData.name}
               logout={this.logout}
             />
             <Route path="/app" exact component={Dashboard} />
@@ -60,7 +61,7 @@ class ContainerComp extends Component {
           </Router>
         </div>
         <div className="flex" id="footer">
-          Bakertilly Nigeria
+          &copy; Bakertilly in Nigeria, {new Date().getFullYear()}.
         </div>
       </div>
     );

@@ -4,8 +4,8 @@ const Reports = (props) => {
   const ReportsIndex = () => props.listOfReports.map(report => {
     let time_in = new Date(report.time_in)
     return (
-      <div className="cardItem" key={report.id}>
-        <div className="cardItemTitle">
+      <div className="cardItem bGreen" key={report.id}>
+        <div className="cardItemTitle bGreen">
           {report.activity}
         </div>
         <div className="cardItemInfo">

@@ -16,15 +16,11 @@ const workdoneGateway = {
         });
     },
     findDates: (info) => {
-        const sql = `SELECT * FROM workdone WHERE user = '${info.user}' AND time_in BETWEEN '${info.start}' AND '${indo.end}'`;
+        const sql = `SELECT * FROM workdone WHERE user_id = '${info.user}' AND time_in BETWEEN '${info.start}' AND '${info.end}'`;
 
         return new Promise ((resolve, reject) => {
             pool.query(sql, (err, result) => {
-                if (err) {
-                    console.log(err);
-                    reject(err);
-                }
-                console.log(result);
+                if (err) reject(err);
                 resolve(result);
             });
         });
@@ -48,11 +44,11 @@ const workdoneGateway = {
         });
     },
     insert: (info) => {
-        const sql = `INSERT INTO workdone (lock_id, activity, achievement, comments) VALUES ('${info.lock_id}', '${info.activity}', '${info.achievement}', '${info.comments}')`;
+        const sql = `INSERT INTO workdone (user_id, lock_id, activity, achievement, comments) VALUES (${info.user_id}, ${info.lock_id}, '${info.activity}', '${info.achievement}', '${info.comments}')`;
 
         return new Promise ((resolve, reject) => {
             pool.query(sql, (err, result) => {
-                if (err) reject(err);
+                if (err) {console.log(err); reject(err)};
                 resolve(result ? result.affectedRows : null);
             });
         });

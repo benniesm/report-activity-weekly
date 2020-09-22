@@ -1,8 +1,22 @@
 const express = require('express');
 const router = express.Router();
 const workdoneGateway = require('../gateways/workdoneGateway');
+const reviewGateway = require('../gateways/reviewGateway');
 
 let status = 200, data = [];
+
+const getReviews = async(info) => {
+    const getData = await reviewGateway.findDates(info)
+        .catch(e => {
+            return 'error';
+        });
+
+    if (getData === 'error') {
+        return 'error';
+    } else {
+        return getData;
+    }
+};
 
 router.get('/', async(req, res) => {
 
@@ -14,12 +28,29 @@ router.get('/', async(req, res) => {
     });
 });
 
-router.get('/date', async(req, res) => {
-        const getData = await workdoneGateway.findDates(req.body)
+router.get('/date/:user/:start/:end', async(req, res) => {
+        const start = req.params.start + ' 00:00:00';
+        const end = req.params.end + ' 23:59:59';
+        const info = {user: req.params.user, start: start, end: end}
+        const getData = await workdoneGateway.findDates(info)
             .catch(e => {
                 return 'error';
             });
+        
+        if (getData === 'error') {
+            status = 500, data = 'Server error';
+        } else {
+            const reviews = await getReviews(req.params);
 
+            if (reviews === 'error') {
+                status = 500, data = 'Server error';
+            } else {
+                //getData.reviews = getReviews;
+                status = 200, data = {report: getData, review: reviews};
+            }
+        }
+
+        res.status(status);
         return res.json({data: data});
 });
 

@@ -67,7 +67,7 @@ const requestGet = async(params: Params) => {
   headers['User'] = params.userId ? params.userId: '';
 
   const paramsUriId = params.uriId ===  '' ? '' : '/' + params.uriId;
-  const paramsBody = params.body === '' ? '' : '?' + params.body;
+  const paramsBody = params.body === '' ? '' : '/' + params.body;
 
   const getUrl = (urlLinks as any)[params.uri] + paramsUriId + paramsBody;
   //console.log(getUrl);
