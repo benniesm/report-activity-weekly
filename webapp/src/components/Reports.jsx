@@ -10,7 +10,7 @@ const Reports = (props) => {
         </div>
         <div className="cardItemInfo">
           {report.achievement.split('\n').map((lineText) => {
-            return <span>{lineText}<br/></span>
+            return <span key={lineText}>{lineText}<br/></span>
           })}
           <div>
             {

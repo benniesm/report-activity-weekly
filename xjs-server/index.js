@@ -43,6 +43,7 @@ app.use(async(req, res, next) => {
 
 app.use('/locker', lockerRoute);
 app.use('/user', userRoute);
+app.use('/workdone', workdoneRoute);
 app.use('/workdone/date', workdoneRoute);
 
 app.use((err, req, res, next) => {
