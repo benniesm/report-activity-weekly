@@ -37,6 +37,7 @@ app.use(async(req, res, next) => {
 	//console.log({auth: authenticated});
 	
 	if (!authenticated) {
+		/*
 		const clientUrl = req.url.split('/')[1];
 		console.log(clientUrl);
 
@@ -51,6 +52,7 @@ app.use(async(req, res, next) => {
 
 			return;
 		}
+		*/
 		res.status(401);
 		res.json({data: 'Unauthorized to use resource'});
 		return;
