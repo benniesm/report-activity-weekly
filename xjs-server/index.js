@@ -7,6 +7,7 @@ const authenticator = require('./routes/auth/authenticator');
 const loginRoute = require('./routes/auth/login');
 const logoutRoute = require('./routes/auth/logout');
 const lockerRoute = require('./routes/locker');
+const registerRoute = require('./routes/auth/register');
 const reviewRoute = require('./routes/review');
 const userRoute = require('./routes/user');
 const workdoneRoute = require('./routes/workdone');
@@ -21,7 +22,7 @@ if (process.env.NODE_ENV === 'production') {
 app.use(cors());
 app.use(bodyParser.json());
 
-app.use('/register', userRoute);
+app.use('/register', registerRoute);
 app.use('/login', loginRoute);
 app.use('/logout', logoutRoute); 
 
@@ -48,10 +49,11 @@ app.use('/review', reviewRoute);
 app.use('/user', userRoute);
 app.use('/workdone', workdoneRoute);
 app.use('/workdone/date', workdoneRoute);
-
+/*
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../webapp/build/index.html'));
 });
+*/
 
 app.use((err, req, res, next) => {
   console.log(err);
