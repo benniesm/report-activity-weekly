@@ -37,16 +37,16 @@ class DefaultComp extends Component <CustomProps, State> {
 
   authenticate = async(props: any) => {
     props.loadOn();
-    console.log(props);
+    //console.log(props);
     const authenticate = await authenticator(props.state.auth);
     if (! authenticate) {
       props.loadOff();
-      console.log(props.state.loading);
+      //console.log(props.state.loading);
       return this.setState({redirect: true, target: '/login'});
     }
 
     props.loadOff();
-    console.log(props.state.loading);
+    //console.log(props.state.loading);
     return this.setState({redirect: true, target: '/app'});
   }
 
@@ -64,9 +64,11 @@ class DefaultComp extends Component <CustomProps, State> {
     }
 
     return (
-      <button onClick={() => this.authenticate(this.props)} className="btn-plain">
-        Click here to continue
-      </button>
+      <div className="flex flex-col page">
+        <button onClick={() => this.authenticate(this.props)} className="btn-plain">
+          Click here to continue
+        </button>
+      </div>
     )
   }
 }
