@@ -3,18 +3,21 @@ interface Action {
   }
   
   const defaultState = {
-    load: false
+    load: false,
+    frame: 'loadOff'
   }
   
   const loadingReducer = (state = defaultState, action: Action) => {
     switch (action.type) {
       case 'LOAD_ON':
         return {
-          load: true
+          load: true,
+          frame: 'loadOn'
         };
       case 'LOAD_OFF':
         return {
-          load: false
+          load: false,
+          frame: 'loadOff'
         };
       default:
         return state;

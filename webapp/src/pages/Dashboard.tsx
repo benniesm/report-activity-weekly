@@ -73,7 +73,7 @@ class DashboardComp extends Component <CustomProps, State, Response> {
     const state = this.state;
 
     return (
-      <div className="flex flex-col fullWidth">
+      <div className="flex flex-col page fullWidth">
         <h2>Activities today</h2>
         <Reports listOfReports={state.listOfReports} />
       </div>

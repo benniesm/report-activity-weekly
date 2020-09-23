@@ -83,7 +83,7 @@ class ViewUsersComp extends Component <CustomProps, State> {
     }
 
     return (
-      <div className="flex flex-col fullWidth">
+      <div className="flex flex-col page fullWidth">
         <Users
           listOfUsers={state.listOfUsers}
           viewActivity={this.viewActivity}

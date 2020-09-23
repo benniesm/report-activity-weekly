@@ -2,6 +2,7 @@ const express = require('express');
 require('dotenv').config();
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const path = require('path');
 const authenticator = require('./routes/auth/authenticator');
 const loginRoute = require('./routes/auth/login');
 const logoutRoute = require('./routes/auth/logout');
@@ -47,6 +48,10 @@ app.use('/review', reviewRoute);
 app.use('/user', userRoute);
 app.use('/workdone', workdoneRoute);
 app.use('/workdone/date', workdoneRoute);
+
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, '../webapp/build', 'index.html'));
+});
 
 app.use((err, req, res, next) => {
   console.log(err);

@@ -129,10 +129,12 @@ class LoginComp extends Component {
     }
 
     return (
-      <div className="flex flex-col" id="loginForm">
+      <div className="flex flex-col" id="loginArea">
+          <div className="flex flex-col" id="loginForm"
+          >
           <form
             className="flex flex-col"
-            style={{width: '100%'}}
+            style={{border: 0, width: '100%'}}
             onSubmit={this.handleSubmit}
           >
             <h3>Activity Portal</h3>
@@ -176,6 +178,7 @@ class LoginComp extends Component {
           >
             Record your current location to continue
           </button>
+          </div>
       </div>
     );
   };

@@ -135,7 +135,7 @@ class ViewUserActivityComp extends Component <CustomProps, State, Event> {
 
     if (requestResponse.status === 201) {
       this.setState({listOfReviews: requestResponse.data.data});
-      return window.alert('Review submitted');
+      return window.alert('Review submitted. \nScroll down to view.');
     }
 
     return window.alert('Not successful, please try again');
@@ -143,11 +143,6 @@ class ViewUserActivityComp extends Component <CustomProps, State, Event> {
 
   render() {
     const state = this.state;
-
-    interface DateInput {
-      value: any,
-      onClick: any
-    }
 
     const StartInput = ({value, onClick}: any) => {
       return (
@@ -176,7 +171,7 @@ class ViewUserActivityComp extends Component <CustomProps, State, Event> {
     };
 
     return (
-      <div className="flex flex-col fullWidth">
+      <div className="flex flex-col page fullWidth">
           <form
             className="flex flex-col"
             onSubmit={this.handleSubmit}

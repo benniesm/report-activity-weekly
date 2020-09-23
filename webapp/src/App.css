@@ -13,6 +13,14 @@
   width: 100%;
 }
 
+.loadOn {
+  display: none;
+}
+
+.loadOff {
+  display: block;
+}
+
 .fullWidth {
   width: 100%;
 }

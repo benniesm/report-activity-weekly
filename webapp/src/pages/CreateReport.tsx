@@ -90,7 +90,7 @@ class CreateReportComp extends Component <CustomProps, State, Event> {
     }
 
     return (
-      <div className="flex flex-col" style={{width: '100%'}}>
+      <div className="flex flex-col page" style={{width: '100%'}}>
         <>
         <div className="small-title">
           Record your activity and achievements below
