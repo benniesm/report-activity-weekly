@@ -33,9 +33,24 @@ app.use(async(req, res, next) => {
 		req.headers.user,
 		req.headers.authorization
 		);
+	//console.log(req.method);
 	//console.log({auth: authenticated});
 	
 	if (!authenticated) {
+		const clientUrl = req.url.split('/')[1];
+		console.log(clientUrl);
+
+		if (clientUrl !== 'locker'
+			&& clientUrl !== 'review'
+			&& clientUrl !== 'user'
+			&& clientUrl !== 'workdone'
+			&& process.env.NODE_ENV === 'production') {
+				app.get('*', (req, res) => {
+					res.sendFile(path.join(__dirname, '../webapp/build/index.html'));
+				});
+
+			return;
+		}
 		res.status(401);
 		res.json({data: 'Unauthorized to use resource'});
 		return;
