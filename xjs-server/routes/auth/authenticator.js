@@ -9,7 +9,7 @@ const authenticator = async(user, token) => {
             return false;
         });
     
-    if (userInfo.length > 0 && userInfo[0].hasOwnProperty('auth_token')) {
+    if (userInfo && userInfo.length > 0 && userInfo[0].hasOwnProperty('auth_token')) {
         if (userInfo[0].auth_token === token) {
             //console.log('comparison okay');
             return true;

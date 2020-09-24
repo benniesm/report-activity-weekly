@@ -44,7 +44,7 @@ class RegisterComp extends Component {
     if (requestResponse.status > 299) {
       switch (requestResponse.status) {
         case 409:
-          return window.alert('Email has already been registered');
+          return window.alert('UNSUCCESSFUL!\nPlease use a different email address');
         case 500:
           return window.alert('Server error. \n Try again or contact admin');     
         default:

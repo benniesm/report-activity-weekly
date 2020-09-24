@@ -8,7 +8,7 @@ const config = {
     //connectionLimit : 10,
 }
 const pool = mysql.createPool(config);
-console.log('DB on standby');
+console.log('DB pool created');
 
 /*
 con.connect((err) => {

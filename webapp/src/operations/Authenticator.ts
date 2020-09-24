@@ -22,7 +22,7 @@ const authenticator = async(auth: auth) => {
   // Confirm if auth data is set and auth is true
   if (! auth.auth || ! authDataSet) {
   console.log('noe auth data');
-    return false;
+    //return false;
   }
 
   // Attempt to request for the current user's profile

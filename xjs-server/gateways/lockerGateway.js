@@ -30,7 +30,7 @@ const lockerGateway = {
                 if (result.length < 1) {
                     resolve(null);
                 } else {
-                    resolve(result[0].id);
+                    resolve(result ? result[0].id: 0);
                 }                
             });
         })
