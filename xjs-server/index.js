@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 
 app.use((req, res, next) => {
 	const reqUrl = req.url.split('/')[1];
-	console.log(reqUrl);
+	//console.log(reqUrl);
 
 	if (reqUrl === 'register'
 		||reqUrl === 'login'
@@ -59,7 +59,7 @@ const authUser = async(req) => {
 }
 
 const exitRequest = (res) => {
-	console.log('exiting...');
+	//console.log('exiting...');
 	res.status(401);
 	res.json({data: 'Unauthorized to use resource'});
 	return;
@@ -67,7 +67,7 @@ const exitRequest = (res) => {
 
 app.use(async(req, res, next) => {
 	if (!await authUser(req)) return exitRequest(res);
-	console.log('executing...');
+	//console.log('executing...');
 	app.use('/locker', lockerRoute);
 	app.use('/review', reviewRoute);
 	app.use('/user', userRoute);

@@ -31,8 +31,8 @@ const Header = (props) => {
       <img src="/logo.jpg" alt="logo" height="40px" width="35px" />
       <div className="flex" id="navBar">
         <Link to="/app" className="flex links" >Dashboard</Link>
-        <Link to="/create-report" className="flex links" >Create Activity Report</Link>
-        <Link to="/view-users" className="flex links" >View Staff Activities</Link>
+        <Link to="/create-report" className="flex links" >Add activity</Link>
+        <Link to="/view-users" className="flex links" >View staff</Link>
       </div>  
       <h5><i>{props.name}</i></h5>
       <button className="btn-orange" onClick={() => logout(props)}>

@@ -12,6 +12,15 @@ const authenticator = async(user, token) => {
     if (userInfo && userInfo.length > 0 && userInfo[0].hasOwnProperty('auth_token')) {
         if (userInfo[0].auth_token === token) {
             //console.log('comparison okay');
+            const sessionToday = await authGateway.session(user)
+                .catch(e => {
+                    return null;
+                });
+
+            if (sessionToday === null) {
+                return false;
+            }
+            
             return true;
         }
 
